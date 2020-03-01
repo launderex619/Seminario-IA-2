@@ -23,17 +23,17 @@ var plugin = {
     }
     ctx.font = "2em roboto";
     // para cada clase de salida (Zonas validas)
-    let llaves = [];
-    let valores = []
-    let zona = 0;
-    math.transpose(contenidoSalidas).filter(( t={}, a=> !(t[a]=a in t) )).forEach(value => {llaves.push(value); valores.push('Zona' + zona++)});
-    for (let i = 0; i < llaves.length; i++) {      
-      ctx.fillText(
-        valores[i],
-        xScale.getPixelForValue(`${llaves[i][0]}`),
-        yScale.getPixelForValue(llaves[i][1])
-      );
-    }
+    //let llaves = [];
+    //let valores = []
+    //let zona = 0;
+    //math.transpose(contenidoSalidas).filter(( t={}, a=> !(t[a]=a in t) )).forEach(value => {llaves.push(value); valores.push('Zona' + zona++)});
+    //for (let i = 0; i < llaves.length; i++) {      
+      //ctx.fillText(
+       // valores[i],
+       // xScale.getPixelForValue(`${llaves[i][0]}`),
+       // yScale.getPixelForValue(llaves[i][1])
+      //);
+    //}
     ctx.save();
   }
 };
@@ -81,7 +81,7 @@ function crearGrafico() {
       }
     }
   });
-  console.log(chart.data);
+  console.log('chart', chart.data);
 }
 
 function getRandomColor() {

@@ -27,10 +27,10 @@ function comenzarAlgoritmo() {
   // definicion de la cantidad de neuronas
   crearDataSetsGrafica(setEntrenamiento.y.length);
   // declaracion de la neurona
-  //setEntrenamiento.y.forEach((value, it) => neuronas.push(new Neurona(pesos, sesgo, eta, { x: setEntrenamiento.x, y: value })));
+  setEntrenamiento.y.forEach((value, it) => neuronas.push(new Neurona(pesos, sesgo, eta, { x: setEntrenamiento.x, y: value })));
   console.log('neuronas: ', neuronas)
   // metodo recursivo para el entrenamiento
-  // iteration(0);
+  iteration(0);
 }
 
 function crearSetsEntrenamiento() {
@@ -63,7 +63,7 @@ function iteration(i) {
   iteracionHTML.innerHTML = i;
   chart.update();
   if (!entrenado) {
-    setTimeout(function () { iteration(++i); }, 4000);
+    //setTimeout(function () { iteration(++i); }, 4000);
   }
   console.log(i, chart.data.datasets[0].data);
 }
