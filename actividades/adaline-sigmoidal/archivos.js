@@ -30,13 +30,11 @@ function crearEntradas(cantidadPuntos) {
     contenido.push(agregarRuido(y) + " ");
   }
   saveAs(new Blob(contenido, { type: "text/plain;charset=utf-8" }), ficheroNombre);
-  contenidoEntradas = contenido.map(value => +value.trim());
-  console.log(contenidoEntradas);
 }
 
 function agregarRuido(y) {
   let max = 0.25
-  let min = -.25;
+  let min = -0.25;
   return y + (Math.random() * ((max - min) + min));
 }
 
@@ -48,5 +46,5 @@ function crearSet() {
     arregloTemp.push(paso);
   }
   contenidoEntradas = arregloTemp;
-  console.log(contenidoEntradas);
+  console.log('contenido entradas',contenidoEntradas);
 }

@@ -1,7 +1,6 @@
-
 var plugin = {
   id: 'plugin',
-  beforeDraw: function (chart) {   // Labels fijos en la grafica
+  beforeDraw: function (chart) { // Labels fijos en la grafica
     var width = chart.chart.width,
       height = chart.chart.height,
       ctx = chart.chart.ctx,
@@ -28,25 +27,31 @@ var plugin = {
     //let zona = 0;
     //math.transpose(contenidoSalidas).filter(( t={}, a=> !(t[a]=a in t) )).forEach(value => {llaves.push(value); valores.push('Zona' + zona++)});
     //for (let i = 0; i < llaves.length; i++) {      
-      //ctx.fillText(
-       // valores[i],
-       // xScale.getPixelForValue(`${llaves[i][0]}`),
-       // yScale.getPixelForValue(llaves[i][1])
-      //);
+    //ctx.fillText(
+    // valores[i],
+    // xScale.getPixelForValue(`${llaves[i][0]}`),
+    // yScale.getPixelForValue(llaves[i][1])
+    //);
     //}
     ctx.save();
   }
 };
 
-var data = [
-  { x: 0, y: 0 },
-  { x: 0, y: 0 },
+var data = [{
+    x: 0,
+    y: 0
+  },
+  {
+    x: 0,
+    y: 0
+  },
 ];
 let sets = [];
 var ctx = document.getElementById('canvas').getContext('2d');
 var chart;
+
 function crearGrafico() {
-   chart = new Chart(ctx, {
+  chart = new Chart(ctx, {
     type: 'line',
     data: {
       datasets: sets
@@ -93,18 +98,39 @@ function getRandomColor() {
   return color;
 }
 
-function crearDataSetsGrafica(numeroDataSets) {
-  for (let i = 0; i < numeroDataSets; i++) {
-    let obj = {
-      label: `Neurona ${i}`,
-      data: data,
-      borderWidth: 1,
-      borderColor: getRandomColor(),
-      fill: true,
-      cubicInterpolationMode: 'monotone'
-    };
-    sets.push(obj);
+function crearDataSetsGrafica(setEntrenamiento) {
+  data = [];
+  data2 = [];
+  for (let i = 0; i < setEntrenamiento.x[0].length; i++) {
+    data.push({
+      x: setEntrenamiento.x[0][i],
+      y: setEntrenamiento.y[0][i]
+    })
+    data2.push({
+      x: setEntrenamiento.x[0][i],
+      y: setEntrenamiento.y[0][i]
+    })
   }
+
+  let obj = {
+    label: `Grafica 1`,
+    data: data,
+    borderWidth: 1,
+    borderColor: getRandomColor(),
+    fill: true,
+    cubicInterpolationMode: 'monotone'
+  };
+  sets.push(obj);
+  let obj2 = {
+    label: `Grafica 2`,
+    data: data2,
+    borderWidth: 1,
+    borderColor: getRandomColor(),
+    fill: true,
+    cubicInterpolationMode: 'monotone'
+  };
+  sets.push(obj2);
+
   console.log('sets', sets);
   crearGrafico();
 }

@@ -1,34 +1,39 @@
-class Neurona{
+'use strict';
+class Neurona {
   /**
    * pesos: Array, sesgo: Number, eta: Number, setEntrenamiento: Object
    */
-  constructor(pesos, sesgo, eta, setEntrenamiento) {
+  constructor(pesos, sesgo, eta) {
     this.pesos = pesos;
     this.sesgo = sesgo;
     this.eta = eta;
-    this.setEntrenamiento = setEntrenamiento;
+    this.setEntrenamiento = [];
   }
 
-  predecir(iteracion) {
-    const y = math.multiply(math.transpose(this.pesos), this.setEntrenamiento.x[iteracion]) + this.sesgo;
-    return 1/(1 + Math.pow(Math.E, -y));
-    // console.log(y, this.setEntrenamiento.x[iteracion]);
-    
+  predecir() {
+    return math.multiply(this.pesos, math.transpose(this.setEntrenamiento)) + this.sesgo;
   }
 
-  entrenar() {
-    let entrenado = true;
-    for(let i = 0; i < this.setEntrenamiento.x.length; i++) {
-      let error = this.setEntrenamiento.y[i] - (this.predecir(i));
-      console.log('error', error, 'ite', i, 'pred', this.predecir(i), this.setEntrenamiento.y[i]);
-      if(error > 0.2 || error < -0.1){   
-        let mult = math.multiply(this.eta, error, this.setEntrenamiento.x[i]);
-        //console.log('mult', mult)
-        this.pesos = math.add(this.pesos, mult);
-        this.sesgo = this.sesgo + this.eta * error;
-        entrenado = false;
-      }
-    }
-    return entrenado;
+  sigmoide(prediccion) {
+    return 1/(1+Math.pow(Math.E, -prediccion));
+  }
+
+  derivada(prediccion) {
+    return 1//prediccion * (1 -prediccion);
+  }
+
+  entrenar(setPuntos) {
+    let y = setPuntos.pop().y;
+    this.setEntrenamiento = [];
+    setPuntos.forEach(element => {
+      this.setEntrenamiento.push(element.y);
+    });
+    let prediccion = this.predecir();
+    let sigmoide = this.sigmoide(prediccion);
+    let derivada = this.derivada(sigmoide);
+    let error = this.eta * (y - prediccion) * derivada;
+    this.pesos = math.add(this.pesos, math.multiply(error, this.setEntrenamiento));
+    this.sesgo = this.sesgo + error;
+    return error;
   }
 }
